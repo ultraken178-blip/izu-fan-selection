@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IZU FAN CLUB SELECTION STORE</title>
+<title>IZU FAN SELECTION</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;700&family=Shippori+Mincho+B1:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,7 +54,6 @@ body {
   transition: transform 0.35s ease;
   transform: translate(-50%, -50%);
 }
-body:hover .cursor { opacity: 1; }
 
 /* ── NAV ── */
 nav {
@@ -117,56 +116,71 @@ nav.solid {
   overflow: hidden;
 }
 
-/* 背景グラデーション＋有機的な光 */
-.hero-bg {
+/* スライドショー背景 */
+.hero-slides {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 70%, rgba(26,74,110,0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(61,92,56,0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 55% 90%, rgba(160,82,45,0.3) 0%, transparent 50%),
-    linear-gradient(165deg, #050e08 0%, #0a1218 45%, #100c06 100%);
+}
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+.hero-slide.active { opacity: 1; }
+
+/* 各スライド - top001.pngをCSS object-positionで切り取り */
+.slide-1 {
+  background-image: url('image/top001.png');
+  background-position: 16.5% center;
+  background-size: 300% auto;
+}
+.slide-2 {
+  background-image: url('image/top001.png');
+  background-position: 50% center;
+  background-size: 300% auto;
+}
+.slide-3 {
+  background-image: url('image/top001.png');
+  background-position: 83.5% center;
+  background-size: 300% auto;
+}
+
+/* オーバーレイ */
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,12,9,0.3) 0%,
+    rgba(14,12,9,0.2) 40%,
+    rgba(14,12,9,0.7) 100%
+  );
+  z-index: 1;
 }
 
 /* 粒状テクスチャ */
 .hero-grain {
-  position: absolute; inset: 0; z-index: 1; opacity: 0.45;
+  position: absolute; inset: 0; z-index: 2; opacity: 0.3;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-size: 180px;
   mix-blend-mode: overlay;
-}
-
-/* 浮遊する光の粒 */
-.orb {
-  position: absolute; border-radius: 50%; filter: blur(80px);
-  animation: float 18s ease-in-out infinite;
   pointer-events: none;
 }
-.orb-1 { width:500px; height:500px; left:-10%; top:10%; background:rgba(26,74,110,0.18); animation-delay:0s; }
-.orb-2 { width:400px; height:400px; right:5%; top:30%; background:rgba(61,92,56,0.15); animation-delay:-6s; }
-.orb-3 { width:350px; height:350px; left:40%; bottom:-5%; background:rgba(200,168,75,0.08); animation-delay:-12s; }
 
-@keyframes float {
-  0%,100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(30px,-20px) scale(1.05); }
-  66% { transform: translate(-20px,15px) scale(0.97); }
+/* スライドインジケーター */
+.slide-indicators {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0.6rem; z-index: 10;
 }
-
-/* 横に流れる細線 */
-.hero-lines {
-  position: absolute; inset: 0; z-index: 1; overflow: hidden;
+.slide-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(200,168,75,0.3);
+  border: 1px solid rgba(200,168,75,0.5);
+  cursor: pointer;
+  transition: all 0.3s;
 }
-.hero-lines::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 80px,
-    rgba(200,168,75,0.025) 80px,
-    rgba(200,168,75,0.025) 81px
-  );
-}
+.slide-dot.active { background: var(--gold); width: 24px; border-radius: 3px; }
 
 .hero-content {
   position: relative; z-index: 10;
@@ -177,8 +191,6 @@ nav.solid {
   gap: 4rem;
   align-items: end;
 }
-
-.hero-left {}
 
 .hero-tag {
   display: inline-flex; align-items: center; gap: 0.8rem;
@@ -219,7 +231,7 @@ nav.solid {
 .hero-desc {
   font-size: clamp(0.85rem, 1.2vw, 0.98rem);
   line-height: 2.4;
-  color: rgba(247,242,234,0.55);
+  color: rgba(247,242,234,0.75);
   border-left: 1px solid rgba(200,168,75,0.3);
   padding-left: 1.8rem;
   margin-bottom: 3rem;
@@ -252,27 +264,6 @@ nav.solid {
   transition: all 0.3s ease;
 }
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-
-.hero-scroll-ind {
-  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-  z-index: 10;
-  opacity: 0; animation: fadeIn 1s ease 1.6s forwards;
-}
-.scroll-track {
-  width: 1px; height: 70px;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  animation: scrollAnim 2.2s ease-in-out infinite;
-}
-@keyframes scrollAnim {
-  0%,100% { opacity: 0.3; transform: scaleY(0.8); }
-  50% { opacity: 1; transform: scaleY(1.2); }
-}
-.scroll-label {
-  font-size: 0.6rem; letter-spacing: 0.3em;
-  color: rgba(247,242,234,0.3);
-  writing-mode: vertical-rl;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(35px); }
@@ -330,7 +321,6 @@ nav.solid {
   display: grid; grid-template-columns: 5fr 7fr; gap: 8rem; align-items: center;
   position: relative; z-index: 1;
 }
-.concept-left {}
 .concept-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 6rem; line-height: 1;
@@ -356,7 +346,6 @@ nav.solid {
 }
 .concept-body strong { color: var(--paper); font-weight: 400; }
 
-.concept-right {}
 .concept-stats {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
   background: rgba(200,168,75,0.12);
@@ -381,7 +370,7 @@ nav.solid {
   line-height: 1.7;
 }
 
-/* ── STORY / PRODUCT FEATURE ── */
+/* ── FEATURE STORIES ── */
 .features {
   background: var(--dark);
 }
@@ -401,27 +390,27 @@ nav.solid {
   display: flex; align-items: center; justify-content: center;
 }
 
-/* 各フィーチャーの背景 */
 .fv-1 {
   background:
     radial-gradient(ellipse 70% 60% at 40% 50%, rgba(200,168,75,0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 50% at 80% 20%, rgba(61,92,56,0.2) 0%, transparent 60%),
     linear-gradient(145deg, #0d1a0e 0%, #1a1408 100%);
 }
 .fv-2 {
   background:
     radial-gradient(ellipse 70% 60% at 60% 50%, rgba(26,74,110,0.3) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(200,168,75,0.1) 0%, transparent 60%),
     linear-gradient(145deg, #060e18 0%, #0d1825 100%);
 }
 .fv-3 {
   background:
     radial-gradient(ellipse 70% 60% at 50% 60%, rgba(160,82,45,0.25) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 50% at 80% 20%, rgba(200,168,75,0.12) 0%, transparent 60%),
     linear-gradient(145deg, #150a05 0%, #1f1008 100%);
 }
+.fv-4 {
+  background:
+    radial-gradient(ellipse 70% 60% at 40% 50%, rgba(100,50,120,0.25) 0%, transparent 65%),
+    linear-gradient(145deg, #0d0814 0%, #1a1020 100%);
+}
 
-/* 商品の見せ方 - アート的なビジュアル */
 .feature-art {
   text-align: center; padding: 4rem;
 }
@@ -446,7 +435,6 @@ nav.solid {
   color: var(--gold); letter-spacing: 0.2em;
 }
 
-/* 大きな番号 */
 .feature-bg-num {
   position: absolute; bottom: -2rem; right: -1rem;
   font-family: 'Cormorant Garamond', serif;
@@ -455,7 +443,6 @@ nav.solid {
   pointer-events: none; user-select: none;
 }
 
-/* テクスチャライン */
 .feature-visual::after {
   content: '';
   position: absolute; inset: 0;
@@ -493,7 +480,6 @@ nav.solid {
   margin-bottom: 2.5rem;
 }
 
-/* 生産者カード */
 .producer {
   padding: 1.4rem 1.6rem;
   border: 1px solid rgba(200,168,75,0.18);
@@ -528,7 +514,13 @@ nav.solid {
 }
 .btn-feature:hover { background: rgba(200,168,75,0.1); gap: 1.5rem; }
 
-/* ── GRID SHOWCASE ── */
+/* 商品画像スタイル */
+.feature-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* ── SHOWCASE GRID ── */
 .showcase {
   background: var(--warm);
   padding: 9rem 4rem;
@@ -571,6 +563,11 @@ nav.solid {
 .sc-card-e { grid-column: 7/13; padding: 4rem; }
 
 .sc-icon { font-size: 2.2rem; display: block; margin-bottom: 1.5rem; }
+.sc-img {
+  width: 100%; height: 140px;
+  object-fit: cover; display: block;
+  margin-bottom: 1.5rem;
+}
 .sc-tag {
   font-size: 0.65rem; letter-spacing: 0.18em;
   color: var(--gold); border: 1px solid rgba(200,168,75,0.3);
@@ -736,7 +733,6 @@ footer {
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .hero-content { grid-template-columns: 1fr; padding: 0 2rem 5rem; }
-  .hero-right { border-left: none; padding-left: 0; }
   .concept-grid { grid-template-columns: 1fr; gap: 4rem; }
   .feature { grid-template-columns: 1fr; }
   .feature:nth-child(even) .feature-visual,
@@ -763,8 +759,8 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <a class="nav-brand" href="#">
-    <span class="nav-brand-main">IZU FAN CLUB</span>
-    <span class="nav-brand-sub">Selection Store</span>
+    <span class="nav-brand-main">IZU FAN SELECTION</span>
+    <span class="nav-brand-sub">Izu Local Selection Store</span>
   </a>
   <div class="nav-right">
     <a class="nav-link" href="#concept">コンセプト</a>
@@ -776,12 +772,13 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-slides">
+    <div class="hero-slide slide-1 active"></div>
+    <div class="hero-slide slide-2"></div>
+    <div class="hero-slide slide-3"></div>
+  </div>
+  <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="hero-lines"></div>
 
   <div class="hero-content">
     <div class="hero-left">
@@ -799,7 +796,7 @@ footer {
         海あり、山あり、温泉あり。<br>
         この半島にしか生まれない味を、<br>
         つくった人の顔とともにお届けします。<br><br>
-        生産者への掲載費は、ずっと<strong>無料</strong>。
+        月額5,000円で<strong>何品でも掲載し放題。</strong>
       </p>
       <div class="hero-cta-group">
         <a class="btn-primary" href="https://izu-fan-selection1.stores.jp" target="_blank">ストアを見る →</a>
@@ -808,27 +805,28 @@ footer {
     </div>
   </div>
 
-  <div class="hero-scroll-ind">
-    <div class="scroll-track"></div>
-    <span class="scroll-label">SCROLL</span>
+  <div class="slide-indicators">
+    <div class="slide-dot active" data-index="0"></div>
+    <div class="slide-dot" data-index="1"></div>
+    <div class="slide-dot" data-index="2"></div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
-  <div class="ticker-inner" id="ticker">
+  <div class="ticker-inner">
     <span class="ticker-item">伊豆の恵み <span class="ticker-dot"></span></span>
     <span class="ticker-item">生産者直送 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">掲載費 ¥0 <span class="ticker-dot"></span></span>
+    <span class="ticker-item">月額5,000円・掲載し放題 <span class="ticker-dot"></span></span>
     <span class="ticker-item">ストーリーのあるモノだけ <span class="ticker-dot"></span></span>
-    <span class="ticker-item">沼津・三島・熱海・下田 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">IZU FAN CLUB SELECTION <span class="ticker-dot"></span></span>
+    <span class="ticker-item">沼津・三島・熱海・下田・静岡 <span class="ticker-dot"></span></span>
+    <span class="ticker-item">IZU FAN SELECTION <span class="ticker-dot"></span></span>
     <span class="ticker-item">伊豆の恵み <span class="ticker-dot"></span></span>
     <span class="ticker-item">生産者直送 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">掲載費 ¥5000 <span class="ticker-dot"></span></span>
+    <span class="ticker-item">月額5,000円・掲載し放題 <span class="ticker-dot"></span></span>
     <span class="ticker-item">ストーリーのあるモノだけ <span class="ticker-dot"></span></span>
-    <span class="ticker-item">沼津・三島・熱海・下田 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">IZU FAN CLUB SELECTION <span class="ticker-dot"></span></span>
+    <span class="ticker-item">沼津・三島・熱海・下田・静岡 <span class="ticker-dot"></span></span>
+    <span class="ticker-item">IZU FAN SELECTION <span class="ticker-dot"></span></span>
   </div>
 </div>
 
@@ -846,28 +844,28 @@ footer {
         <strong>誰が、どこで、どんな想いでつくったのか。</strong><br>
         その物語を知ったとき、<br>
         ただの「お土産」は忘れられない記憶になる。<br><br>
-        IZU FAN CLUB SELECTION STOREは<br>
-        伊豆の生産者と、あなたをつなぐ<br>
+        IZU FAN SELECTIONは<br>
+        伊豆・静岡の生産者と、あなたをつなぐ<br>
         物語の場所です。
       </p>
     </div>
     <div class="concept-right">
       <div class="concept-stats">
         <div class="stat-box">
-          <div class="stat-num">¥<span class="stat-unit">0</span></div>
-          <div class="stat-label">掲載費用<br>初期・月額・手数料すべて無料</div>
+          <div class="stat-num">¥<span class="stat-unit">5,000</span></div>
+          <div class="stat-label">月額掲載費<br>何品でも掲載し放題</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">4<span class="stat-unit">エリア</span></div>
-          <div class="stat-label">沼津・三島・熱海・下田<br>伊豆全域を展開予定</div>
+          <div class="stat-num">5<span class="stat-unit">エリア+</span></div>
+          <div class="stat-label">沼津・三島・熱海・下田・静岡<br>伊豆全域＋静岡市エリアも展開</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">100<span class="stat-unit">人</span></div>
-          <div class="stat-label">インフルエンサー体制<br>SNS拡散で購買をサポート</div>
+          <div class="stat-num">SNS</div>
+          <div class="stat-label">インフルエンサーサービス利用可能<br>SNS拡散で購買をサポート</div>
         </div>
         <div class="stat-box">
           <div class="stat-num">∞</div>
-          <div class="stat-label">掲載期間<br>期限なしで長期露出</div>
+          <div class="stat-label">掲載品数<br>月額固定で何品でもOK</div>
         </div>
       </div>
     </div>
@@ -914,7 +912,44 @@ footer {
     </div>
   </div>
 
-  <!-- Story 2: 海の幸 -->
+  <!-- Story 2: 伊豆地酒 -->
+  <div class="feature reveal">
+    <div class="feature-visual">
+      <div class="feature-visual-inner fv-4" style="padding:0;overflow:hidden;">
+        <img src="image/image.png"
+          alt="伊豆地酒"
+          style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="feature-bg-num">02</div>
+    </div>
+    <div class="feature-body">
+      <div class="feature-tag">
+        <div class="tag-dash"></div>
+        <span class="tag-label">地酒 / 伊豆・静岡</span>
+      </div>
+      <h3 class="feature-title">
+        伊豆の水と米が育てた、<br>
+        この土地にしか<br>
+        生まれない一本。
+      </h3>
+      <p class="feature-desc">
+        豊かな自然水系と、静岡の酒蔵が紡ぐ地酒。<br>
+        食中酒として、贈り物として、<br>
+        伊豆の記憶をそのまま瓶に詰めました。
+      </p>
+      <div class="producer">
+        <div class="producer-ava">🍶</div>
+        <div>
+          <div class="producer-name">伊豆・静岡の酒蔵</div>
+          <div class="producer-info">伊豆エリア / 地酒醸造</div>
+          <div class="producer-quote">この土地の水でなければ、この味は出せない。</div>
+        </div>
+      </div>
+      <a class="btn-feature" href="https://izu-fan-selection1.stores.jp" target="_blank">商品を見る →</a>
+    </div>
+  </div>
+
+  <!-- Story 3: 海の幸 -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-2">
@@ -924,7 +959,7 @@ footer {
           <div class="feature-art-en">Suruga Bay Seafood</div>
         </div>
       </div>
-      <div class="feature-bg-num">02</div>
+      <div class="feature-bg-num">03</div>
     </div>
     <div class="feature-body">
       <div class="feature-tag">
@@ -953,7 +988,7 @@ footer {
     </div>
   </div>
 
-  <!-- Story 3: 山の恵み -->
+  <!-- Story 4: 山の恵み -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-3">
@@ -963,7 +998,7 @@ footer {
           <div class="feature-art-en">Amagi Mountain Craft</div>
         </div>
       </div>
-      <div class="feature-bg-num">03</div>
+      <div class="feature-bg-num">04</div>
     </div>
     <div class="feature-body">
       <div class="feature-tag">
@@ -1002,7 +1037,7 @@ footer {
   <div class="showcase-grid reveal">
     <div class="sc-card sc-card-a">
       <span class="free-pill">掲載中</span>
-      <span class="sc-icon">🍨</span>
+      <img class="sc-img" src="image/1213134106738643.h7wRzfSo7e6McOA9VsZl_height640.png" alt="ジェラート">
       <div class="sc-tag">スイーツ / 伊豆</div>
       <div class="sc-name">伊豆フルーツジェラート</div>
       <div class="sc-origin">地元ジェラート工房</div>
@@ -1010,6 +1045,15 @@ footer {
       <div class="sc-arrow">↗</div>
     </div>
     <div class="sc-card sc-card-b">
+      <span class="free-pill">掲載中</span>
+      <img class="sc-img" src="image/image.png" alt="伊豆地酒">
+      <div class="sc-tag">地酒 / 伊豆・静岡</div>
+      <div class="sc-name">伊豆地酒セット</div>
+      <div class="sc-origin">伊豆・静岡の酒蔵</div>
+      <div class="sc-catch">伊豆の清らかな水と米が育てた地酒。贈り物にも最適な一本。</div>
+      <div class="sc-arrow">↗</div>
+    </div>
+    <div class="sc-card sc-card-c">
       <span class="sc-icon">🐟</span>
       <div class="sc-tag">干物 / 沼津</div>
       <div class="sc-name">駿河湾一夜干しセット</div>
@@ -1017,20 +1061,12 @@ footer {
       <div class="sc-catch">その日の水揚げだけを使う。添加物ゼロの本物の干物。</div>
       <div class="sc-arrow">↗</div>
     </div>
-    <div class="sc-card sc-card-c">
-      <span class="sc-icon">🌿</span>
-      <div class="sc-tag">加工品 / 天城</div>
-      <div class="sc-name">天城わさび漬け</div>
-      <div class="sc-origin">天城農場（掲載募集中）</div>
-      <div class="sc-catch">清流で育った本わさびを使った、清涼感あふれる漬物。</div>
-      <div class="sc-arrow">↗</div>
-    </div>
     <div class="sc-card sc-card-d">
       <span class="sc-icon">🍊</span>
       <div class="sc-tag">柑橘 / 熱海</div>
       <div class="sc-name">熱海みかんジュース（掲載予定）</div>
       <div class="sc-origin">熱海 山本農園</div>
-      <div class="sc-catch">地熱と太陽をたっぷり受けた有機みかんを、そのまま搾りました。砂糖・水・添加物不使用。飲んだ瞬間、熱海の陽光が広がります。</div>
+      <div class="sc-catch">地熱と太陽をたっぷり受けた有機みかんを、そのまま搾りました。砂糖・水・添加物不使用。</div>
       <div class="sc-arrow">↗</div>
     </div>
     <div class="sc-card sc-card-e">
@@ -1038,7 +1074,7 @@ footer {
       <div class="sc-tag">お茶 / 西伊豆</div>
       <div class="sc-name">霧山 手摘み煎茶（掲載予定）</div>
       <div class="sc-origin">西伊豆 鈴木農園</div>
-      <div class="sc-catch">標高400m、毎朝霧に包まれる茶園。42年間、機械を使わず手で摘み続けてきた煎茶。渋みのないやわらかな甘さ。</div>
+      <div class="sc-catch">標高400m、毎朝霧に包まれる茶園。42年間手で摘み続けてきた煎茶。渋みのないやわらかな甘さ。</div>
       <div class="sc-arrow">↗</div>
     </div>
   </div>
@@ -1057,10 +1093,10 @@ footer {
     <p class="vision-p">
       大手ECには載らない、検索では出てこない、<br>
       でも確かに存在する「本物」がある。<br><br>
-      IZU FAN CLUB SELECTION STOREは、<br>
+      IZU FAN SELECTIONは、<br>
       その声を必要としている誰かに届けたい。<br><br>
-      インフルエンサーと連携しながら、<br>
-      伊豆の魅力を全国へ。
+      インフルエンサーサービスと連携しながら、<br>
+      伊豆・静岡の魅力を全国へ。
     </p>
   </div>
 </section>
@@ -1072,7 +1108,7 @@ footer {
       <h2>あなたの商品を、<br>物語に<br>しませんか。</h2>
       <div class="gold-rule"></div>
       <p>
-        掲載料は、ずっと無料です。<br>
+        月額5,000円で何品でも掲載し放題。<br>
         伊豆・静岡の生産者・事業者の方であれば<br>
         どなたでもお申し込みいただけます。
       </p>
@@ -1081,7 +1117,7 @@ footer {
           <div class="benefit-icon">📸</div>
           <div>
             <strong>プロ撮影サポート</strong>
-            <span>商品・生産現場の撮影をまちプロが無償サポート</span>
+            <span>商品・生産現場の撮影をまちプロがサポート</span>
           </div>
         </div>
         <div class="benefit">
@@ -1094,15 +1130,15 @@ footer {
         <div class="benefit">
           <div class="benefit-icon">📣</div>
           <div>
-            <strong>インフルエンサー連携</strong>
-            <span>掲載と同時にSNSで拡散。最大100人体制</span>
+            <strong>インフルエンサーサービス利用可能</strong>
+            <span>SNS拡散サービスを活用して購買をサポート</span>
           </div>
         </div>
         <div class="benefit">
           <div class="benefit-icon">¥</div>
           <div>
-            <strong>掲載料、永久無料</strong>
-            <span>初期費用・月額費用・手数料すべて無料</span>
+            <strong>月額5,000円・掲載し放題</strong>
+            <span>品数無制限。何品追加してもOK</span>
           </div>
         </div>
       </div>
@@ -1116,7 +1152,7 @@ footer {
       </div>
       <div class="form-field">
         <label>エリア</label>
-        <input type="text" placeholder="例：沼津市">
+        <input type="text" placeholder="例：沼津市・静岡市など">
       </div>
       <div class="form-field">
         <label>商品カテゴリ</label>
@@ -1131,7 +1167,7 @@ footer {
         <textarea placeholder="商品への想いや、どんなストーリーがあるか教えてください。"></textarea>
       </div>
       <button class="form-submit" onclick="alert('お申し込みありがとうございます！\n担当者よりご連絡いたします。')">
-        申し込む（無料）
+        申し込む
       </button>
     </div>
   </div>
@@ -1141,12 +1177,12 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <h3>IZU FAN CLUB</h3>
-      <div class="en">Selection Store</div>
+      <h3>IZU FAN SELECTION</h3>
+      <div class="en">Izu Local Selection Store</div>
       <p>
-        伊豆半島の生産者と消費者をつなぐ<br>
+        伊豆・静岡の生産者と消費者をつなぐ<br>
         物語のあるECプラットフォーム。<br>
-        掲載費無料。まちプロ運営。
+        月額5,000円・掲載し放題。まちプロ運営。
       </p>
     </div>
     <div class="footer-col">
@@ -1165,11 +1201,12 @@ footer {
         <li><a href="#">熱海・伊東</a></li>
         <li><a href="#">伊豆市・天城</a></li>
         <li><a href="#">下田・南伊豆</a></li>
+        <li><a href="#">静岡市エリア</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 IZU FAN CLUB SELECTION STORE. Powered by まちプロ</div>
+    <div class="footer-copy">© 2026 IZU FAN SELECTION. Powered by まちプロ</div>
     <div class="footer-machi">machi-pro.tokyo</div>
   </div>
 </footer>
@@ -1196,6 +1233,22 @@ document.querySelectorAll('a,button').forEach(el => {
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 80));
 
+// スライドショー
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.slide-dot');
+let current = 0;
+function goToSlide(index) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = index;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+}
+dots.forEach(dot => {
+  dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+});
+setInterval(() => goToSlide((current + 1) % slides.length), 5000);
+
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver(entries => {
@@ -1203,10 +1256,10 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(el => io.observe(el));
 
-// Parallax orbs
+// Parallax
 window.addEventListener('scroll', () => {
-  document.querySelectorAll('.orb').forEach((o, i) => {
-    o.style.transform = `translateY(${scrollY * (0.06 + i*0.025)}px)`;
+  document.querySelectorAll('.hero-slides').forEach(s => {
+    s.style.transform = `translateY(${scrollY * 0.3}px)`;
   });
 });
 </script>
