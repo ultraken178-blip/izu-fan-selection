@@ -1232,8 +1232,49 @@ document.querySelectorAll('a,button').forEach(el => {
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 80));
 
+// ヒーロースライドショー
+const heroSlides = document.querySelectorAll('.hero > .hero-slides .hero-slide');
+const dots = document.querySelectorAll('.slide-dot');
+let heroCurrent = 0;
+function goToSlide(index) {
+  heroSlides[heroCurrent].classList.remove('active');
+  dots[heroCurrent].classList.remove('active');
+  heroCurrent = index % heroSlides.length;
+  heroSlides[heroCurrent].classList.add('active');
+  dots[heroCurrent].classList.add('active');
+}
+dots.forEach(dot => {
+  dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+});
+setInterval(() => goToSlide((heroCurrent + 1) % heroSlides.length), 3000);
+
+// 地酒スライドショー
+const sakeSlides = document.querySelectorAll('.feature-visual-inner .hero-slides .hero-slide');
+let sakeCurrent = 0;
+setInterval(() => {
+  sakeSlides[sakeCurrent].classList.remove('active');
+  sakeCurrent = (sakeCurrent + 1) % sakeSlides.length;
+  sakeSlides[sakeCurrent].classList.add('active');
+}, 3000);
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+
+// Parallax
+window.addEventListener('scroll', () => {
+  document.querySelector('.hero .hero-slides').style.transform = `translateY(${scrollY * 0.3}px)`;
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 80));
+
 // スライドショー
-const slides = document.querySelectorAll('.hero-slide');
+const slides = document.querySelectorAll('.hero-slides .hero-slide');
 const dots = document.querySelectorAll('.slide-dot');
 let current = 0;
 function goToSlide(index) {
