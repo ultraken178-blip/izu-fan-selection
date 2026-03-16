@@ -131,21 +131,20 @@ nav.solid {
 
 /* 各スライド - top001.pngをCSS object-positionで切り取り */
 .slide-1 {
-  background-image: url('image/top001.png');
-  background-position: 16.5% center;
-  background-size: 300% auto;
+  background-image: url('image/スクリーンショット_2026-03-16_14_50_42.png');
+  background-position: center;
+  background-size: cover;
 }
 .slide-2 {
-  background-image: url('image/top001.png');
-  background-position: 50% center;
-  background-size: 300% auto;
+  background-image: url('image/スクリーンショット_2026-03-16_14_50_55.png');
+  background-position: center;
+  background-size: cover;
 }
 .slide-3 {
-  background-image: url('image/top001.png');
-  background-position: 83.5% center;
-  background-size: 300% auto;
+  background-image: url('image/スクリーンショット_2026-03-16_14_51_03.png');
+  background-position: center;
+  background-size: cover;
 }
-
 /* オーバーレイ */
 .hero-overlay {
   position: absolute; inset: 0;
@@ -915,11 +914,13 @@ footer {
   <!-- Story 2: 伊豆地酒 -->
   <div class="feature reveal">
     <div class="feature-visual">
-      <div class="feature-visual-inner fv-4" style="padding:0;overflow:hidden;">
-        <img src="image/image.png"
-          alt="伊豆地酒"
-          style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
+     <div class="feature-visual-inner fv-4" style="padding:0;overflow:hidden;position:relative;">
+  <div class="hero-slides" style="position:absolute;inset:0;">
+    <div class="hero-slide active" style="background-image:url('image/fit_cover_w_920_h_1104.avif');background-size:cover;background-position:center;"></div>
+    <div class="hero-slide" style="background-image:url('image/fit_cover_w_920_h_1104__1_.avif');background-size:cover;background-position:center;"></div>
+    <div class="hero-slide" style="background-image:url('image/fit_cover_w_920_h_1104__2_.avif');background-size:cover;background-position:center;"></div>
+  </div>
+</div>
       <div class="feature-bg-num">02</div>
     </div>
     <div class="feature-body">
@@ -1247,7 +1248,7 @@ function goToSlide(index) {
 dots.forEach(dot => {
   dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
 });
-setInterval(() => goToSlide((current + 1) % slides.length), 5000);
+setInterval(() => goToSlide((current + 1) % slides.length), 3000);
 
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
@@ -1262,6 +1263,14 @@ window.addEventListener('scroll', () => {
     s.style.transform = `translateY(${scrollY * 0.3}px)`;
   });
 });
+// 地酒スライドショー
+const sakeSlides = document.querySelectorAll('.feature-visual-inner .hero-slide');
+let sakeCurrent = 0;
+setInterval(() => {
+  sakeSlides[sakeCurrent].classList.remove('active');
+  sakeCurrent = (sakeCurrent + 1) % sakeSlides.length;
+  sakeSlides[sakeCurrent].classList.add('active');
+}, 3000);
 </script>
 </body>
 </html>
