@@ -152,7 +152,15 @@ nav.solid {
 .fv-4 { background: radial-gradient(ellipse 70% 60% at 40% 50%, rgba(100,50,120,0.25) 0%, transparent 65%), linear-gradient(145deg, #0d0814 0%, #1a1020 100%); }
 
 .sake-slides { position: absolute; inset: 0; }
-.sake-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
+.sake-slide {
+  position: absolute; inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0d0814;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
 .sake-slide.active { opacity: 1; }
 
 .feature-art { text-align: center; padding: 4rem; }
