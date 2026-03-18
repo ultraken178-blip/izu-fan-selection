@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊豆地酒 | IZU FAN SELECTION</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;700&family=Shippori+Mincho+B1:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --dark:    #0e0c09;
+  --warm:    #1c1610;
+  --paper:   #f7f2ea;
+  --gold:    #c8a84b;
+  --gold-lt: #e8d08a;
+  --muted:   rgba(247,242,234,0.5);
+}
+
+body {
+  background: var(--dark);
+  color: var(--paper);
+  font-family: 'Noto Serif JP', serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; transform: translate(-50%, -50%); }
+.cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(200,168,75,0.5); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.35s ease; transform: translate(-50%, -50%); }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; background: rgba(14,12,9,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(200,168,75,0.12); }
+.nav-brand { display: flex; flex-direction: column; gap: 0.1rem; text-decoration: none; }
+.nav-brand-main { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--paper); letter-spacing: 0.15em; }
+.nav-brand-sub { font-size: 0.6rem; color: var(--gold); letter-spacing: 0.35em; }
+.nav-back { display: inline-flex; align-items: center; gap: 0.6rem; color: rgba(247,242,234,0.5); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.15em; transition: color 0.2s; }
+.nav-back:hover { color: var(--gold); }
+
+.page-hero {
+  height: 60vh; min-height: 400px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(100,50,120,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 40%, rgba(200,168,75,0.1) 0%, transparent 55%),
+    linear-gradient(165deg, #080510 0%, #0d0814 50%, #150a05 100%);
+}
+.page-hero-grain {
+  position: absolute; inset: 0; opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px; mix-blend-mode: overlay; pointer-events: none;
+}
+.page-hero-content { position: relative; z-index: 2; text-align: center; }
+.page-hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--gold); letter-spacing: 0.3em; display: block; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; }
+.page-hero-title { font-family: 'Shippori Mincho B1', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.2; opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards; }
+.page-hero-title span { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 300; color: var(--gold); letter-spacing: 0.2em; margin-top: 0.8rem; }
+.page-hero-desc { font-size: 0.9rem; line-height: 2.2; color: var(--muted); margin-top: 2rem; opacity: 0; animation: fadeUp 0.9s ease 0.7s forwards; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+.producer-section { background: var(--warm); padding: 6rem 5rem; position: relative; overflow: hidden; }
+.producer-section::before { content: 'DISTILLER'; position: absolute; top: 2rem; right: -2rem; font-family: 'Cormorant Garamond', serif; font-size: 12vw; color: rgba(200,168,75,0.03); font-style: italic; pointer-events: none; }
+.producer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: center; }
+.producer-photo-wrap { position: relative; }
+.producer-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(20%); }
+.producer-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: rgba(200,168,75,0.05); border: 1px solid rgba(200,168,75,0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
+.producer-photo-placeholder span { font-size: 3rem; }
+.producer-photo-placeholder p { font-size: 0.75rem; color: rgba(247,242,234,0.3); letter-spacing: 0.1em; }
+.producer-photo-label { position: absolute; bottom: -1rem; left: -1rem; background: var(--gold); color: var(--dark); padding: 0.5rem 1.2rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; }
+.producer-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.25em; display: block; margin-bottom: 1rem; }
+.producer-name { font-family: 'Shippori Mincho B1', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.5rem; }
+.producer-name-en { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 2rem; display: block; }
+.gold-rule { width: 50px; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+.producer-bio { font-size: 0.88rem; line-height: 2.4; color: var(--muted); margin-bottom: 2rem; }
+.producer-awards { display: flex; flex-direction: column; gap: 0.6rem; }
+.award-item { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.78rem; color: rgba(247,242,234,0.4); line-height: 1.6; }
+.award-year { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; flex-shrink: 0; min-width: 3rem; }
+
+.producer2-section { background: var(--dark); padding: 6rem 5rem; position: relative; overflow: hidden; }
+.producer2-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; align-items: center; }
+
+.products-section { background: var(--dark); padding: 8rem 4rem; }
+.sec-header { text-align: center; margin-bottom: 5rem; }
+.sec-eyebrow { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--gold); letter-spacing: 0.3em; display: block; margin-bottom: 1rem; }
+.sec-title { font-family: 'Shippori Mincho B1', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+
+.product-list { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+
+.product-card { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(200,168,75,0.1); }
+.product-card:nth-child(even) .product-visual { order: 2; }
+.product-card:nth-child(even) .product-info { order: 1; }
+
+/* 瓶画像を縦長でしっかり表示 */
+.product-visual {
+  position: relative; overflow: hidden;
+  background: rgba(200,168,75,0.03);
+  display: flex; align-items: center; justify-content: center;
+  padding: 5rem 3rem;
+  min-height: 700px;
+}
+.product-visual-bg { position: absolute; inset: 0; opacity: 0.4; }
+.bg-1 { background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(26,74,110,0.4) 0%, transparent 70%); }
+.bg-2 { background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(180,60,100,0.3) 0%, transparent 70%); }
+.bg-3 { background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(80,140,80,0.3) 0%, transparent 70%); }
+
+/* 瓶全体が見えるように縦長表示 */
+.product-img {
+  width: auto;
+  max-width: 200px;
+  height: 520px;
+  object-fit: contain;
+  position: relative; z-index: 1;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.6));
+  transition: transform 0.6s ease;
+}
+.product-card:hover .product-img { transform: translateY(-10px); }
+
+.product-num { position: absolute; bottom: 1rem; right: 1.5rem; font-family: 'Cormorant Garamond', serif; font-size: 8rem; line-height: 1; font-weight: 300; color: rgba(200,168,75,0.06); pointer-events: none; }
+
+.product-info { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(200,168,75,0.08); }
+.product-card:nth-child(even) .product-info { border-left: none; border-right: 1px solid rgba(200,168,75,0.08); }
+
+.product-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 1rem; display: block; }
+.product-name-ja { font-family: 'Shippori Mincho B1', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 0.3rem; }
+.product-name-en { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 0.5rem; }
+.product-tagline { font-family: 'Shippori Mincho B1', serif; font-size: 0.95rem; color: var(--gold); margin-bottom: 2rem; }
+.product-rule { width: 40px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+.product-desc { font-size: 0.85rem; line-height: 2.4; color: var(--muted); margin-bottom: 2rem; }
+
+.product-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+.spec-item { padding: 0.8rem 1rem; border: 1px solid rgba(200,168,75,0.15); background: rgba(200,168,75,0.03); }
+.spec-label { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--gold); display: block; margin-bottom: 0.3rem; }
+.spec-value { font-size: 0.85rem; color: var(--paper); }
+
+.product-botanicals { margin-bottom: 2rem; }
+.botanicals-label { font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.6rem; display: block; }
+.botanicals-text { font-size: 0.78rem; line-height: 1.9; color: rgba(247,242,234,0.4); }
+
+.product-awards { margin-bottom: 2.5rem; }
+.awards-label { font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+.award-badges { display: flex; flex-direction: column; gap: 0.4rem; }
+.award-badge { font-size: 0.75rem; color: rgba(247,242,234,0.5); padding-left: 1.2rem; position: relative; line-height: 1.6; }
+.award-badge::before { content: '🏅'; position: absolute; left: 0; font-size: 0.7rem; }
+
+.btn-store { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 2.4rem; background: var(--gold); color: var(--dark); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em; font-family: 'Noto Serif JP', serif; font-weight: 700; transition: all 0.3s ease; width: fit-content; }
+.btn-store:hover { background: var(--gold-lt); gap: 1.5rem; }
+
+.ingredients-section { background: var(--warm); padding: 3rem 4rem 5rem; border-top: 1px solid rgba(200,168,75,0.1); }
+.ingredients-title { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+.ingredients-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.ingredient-card { padding: 1.5rem; border: 1px solid rgba(200,168,75,0.12); background: rgba(200,168,75,0.03); }
+.ingredient-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: rgba(200,168,75,0.2); line-height: 1; margin-bottom: 0.5rem; }
+.ingredient-name { font-family: 'Shippori Mincho B1', serif; font-size: 0.9rem; color: var(--paper); margin-bottom: 0.8rem; }
+.ingredient-desc { font-size: 0.78rem; line-height: 1.9; color: rgba(247,242,234,0.4); }
+
+.video-section { background: var(--dark); padding: 6rem 4rem; text-align: center; border-top: 1px solid rgba(200,168,75,0.08); }
+.video-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.3em; display: block; margin-bottom: 2rem; }
+.video-title { font-family: 'Shippori Mincho B1', serif; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 3rem; }
+.video-wrap { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid rgba(200,168,75,0.15); }
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+.page-footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--paper); letter-spacing: 0.15em; }
+.footer-back { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--gold); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.15em; transition: gap 0.3s; }
+.footer-back:hover { gap: 1rem; }
+.footer-copy { font-size: 0.68rem; color: rgba(247,242,234,0.2); letter-spacing: 0.1em; }
+
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .producer-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .producer2-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .product-card { grid-template-columns: 1fr; }
+  .product-card:nth-child(even) .product-visual, .product-card:nth-child(even) .product-info { order: unset; }
+  .product-visual { min-height: 400px; padding: 3rem 2rem; }
+  .product-img { height: 320px; }
+  .product-info { padding: 3rem 2rem; border-left: none !important; border-right: none !important; border-top: 1px solid rgba(200,168,75,0.08); }
+  .ingredients-grid { grid-template-columns: 1fr; }
+  .producer-section, .producer2-section { padding: 4rem 2rem; }
+  .products-section { padding: 5rem 2rem; }
+  .page-footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 3rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <span class="nav-brand-main">IZU FAN SELECTION</span>
+    <span class="nav-brand-sub">Izu Local Selection Store</span>
+  </a>
+  <a class="nav-back" href="index.html">← トップへ戻る</a>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grain"></div>
+  <div class="page-hero-content">
+    <span class="page-hero-eyebrow">Izu Local Spirits / 三島蒸留所</span>
+    <h1 class="page-hero-title">
+      伊豆地酒
+      <span>The Spirits of Izu</span>
+    </h1>
+    <p class="page-hero-desc">
+      三島の蒸留所「Distillery Water Dragon」が生み出す、<br>
+      世界が認めたクラフトジン。
+    </p>
+  </div>
+</section>
+
+<!-- PRODUCER 1: 山口歩夢 -->
+<section class="producer-section">
+  <div class="producer-inner reveal">
+    <div class="producer-photo-wrap">
+      <div class="producer-photo-placeholder" id="photo1">
+        <span>👨‍🔬</span>
+        <p>写真準備中</p>
+      </div>
+      <div class="producer-photo-label">Master Distiller</div>
+    </div>
+    <div class="producer-info">
+      <span class="producer-label">製造責任者 / Chief Distiller</span>
+      <h2 class="producer-name">山口 歩夢</h2>
+      <span class="producer-name-en">Ayumu Yamaguchi</span>
+      <div class="gold-rule"></div>
+      <p class="producer-bio">
+        東京農業大学大学院農学研究科醸造学専攻修了。25歳で全国最年少のMaster Distillerとして就任し、数々のジンを蒸留。Forbes JAPAN・ASIA両方の「30 UNDER 30」に選出された、日本を代表するクラフトジン蒸留家。
+      </p>
+      <div class="producer-awards">
+        <div class="award-item"><span class="award-year">2021</span><span>THE GIN MASTER 金賞受賞</span></div>
+        <div class="award-item"><span class="award-year">2021</span><span>World Gin Awards コンテンポラリー部門 Country Winner（国別最高賞）</span></div>
+        <div class="award-item"><span class="award-year">2021</span><span>IWSC GOLD OUTSTANDING（最高金賞）受賞</span></div>
+        <div class="award-item"><span class="award-year">2021</span><span>Forbes JAPAN 30 UNDER 30 選出</span></div>
+        <div class="award-item"><span class="award-year">2022</span><span>Forbes ASIA 選出</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCER 2: 山浦真稔 -->
+<section class="producer2-section">
+  <div class="producer2-inner reveal">
+    <div class="producer-info">
+      <span class="producer-label">製造責任者 / Distiller</span>
+      <h2 class="producer-name">山浦 真稔</h2>
+      <span class="producer-name-en">Masatoshi Yamaura</span>
+      <div class="gold-rule"></div>
+      <p class="producer-bio">
+        鹿児島大学大学院 理工学研究科修了、博士（理学）。J.S.A認定ソムリエ。前職は鹿児島の酒造メーカー「西酒造」にて焼酎蔵の研究開発部長 兼 御岳蒸留所 製造責任者を歴任。豊富な醸造・蒸留の知識と経験を持つ。
+      </p>
+    </div>
+    <div class="producer-photo-wrap">
+      <div class="producer-photo-placeholder" id="photo2">
+        <span>👨‍🔬</span>
+        <p>写真準備中</p>
+      </div>
+      <div class="producer-photo-label">Distiller</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="sec-header reveal">
+    <span class="sec-eyebrow">Our Products</span>
+    <h2 class="sec-title">3つの個性</h2>
+  </div>
+
+  <div class="product-list">
+
+    <!-- PRODUCT 1: Water Dragon Spirits -->
+    <div class="product-card reveal">
+      <div class="product-visual">
+        <div class="product-visual-bg bg-1"></div>
+        <img class="product-img" src="image/sake1.avif" alt="Water Dragon Spirits">
+        <div class="product-num">01</div>
+      </div>
+      <div class="product-info">
+        <span class="product-tag">Gin / 三島蒸留所</span>
+        <h3 class="product-name-ja">Water Dragon Spirits</h3>
+        <span class="product-name-en">ウォータードラゴンスピリッツ</span>
+        <p class="product-tagline">ドライを追求した、突き抜ける爽やかさのジン。</p>
+        <div class="product-rule"></div>
+        <p class="product-desc">大きな精留塔を持つDistillery Water Dragonの蒸留機の特徴を最大限に活用し、爽やかな香りを閉じ込めました。口に含むと、ジュニパーベリーを軸として、さまざまな素材の香りが広がります。</p>
+        <div class="product-specs">
+          <div class="spec-item"><span class="spec-label">内容量</span><span class="spec-value">700ml</span></div>
+          <div class="spec-item"><span class="spec-label">アルコール度数</span><span class="spec-value">47度</span></div>
+          <div class="spec-item"><span class="spec-label">価格</span><span class="spec-value">¥3,030（税抜）</span></div>
+          <div class="spec-item"><span class="spec-label">製造</span><span class="spec-value">三島</span></div>
+        </div>
+        <div class="product-botanicals">
+          <span class="botanicals-label">BOTANICALS</span>
+          <p class="botanicals-text">ジュニパーベリー、生姜（根・葉）、甘夏ピール、レモンピール、コリアンダーシード、アンジェリカルート、オリスルート、レモングラス、カモミール、ユーカリ、ローズマリー、スペアミント</p>
+        </div>
+        <div class="product-awards">
+          <span class="awards-label">AWARDS</span>
+          <div class="award-badges">
+            <div class="award-badge">SFWSC 2024 Double Gold / Best in CLASS finalist</div>
+            <div class="award-badge">Gin Masters 2024 Master Medal</div>
+            <div class="award-badge">SWSC 2024 Double Gold</div>
+          </div>
+        </div>
+        <a class="btn-store" href="https://izu-fan-selection1.stores.jp/items/69b8201269f94df5bb0f83fa" target="_blank">STORESで購入する →</a>
+      </div>
+    </div>
+
+    <div class="ingredients-section">
+      <span class="ingredients-title">SPECIAL INGREDIENTS — 特別な素材</span>
+      <div class="ingredients-grid">
+        <div class="ingredient-card"><div class="ingredient-num">01</div><div class="ingredient-name">三島の伝統野菜「ヤマツ葉生姜」</div><p class="ingredient-desc">三島西麓野菜の１つ「ヤマツ葉ショウガ」の根と葉をジンに使用。葉が持つオリエンタルな香りと、根の持つフレッシュな香りをジンに閉じ込めました。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">02</div><div class="ingredient-name">Orange Park Farmの甘夏</div><p class="ingredient-desc">沼津市の西浦にて、自然農法で柑橘を栽培しているOrange Park Farmの甘夏の皮を使用。爽やかながら、甘さは少ない香りがジンの爽やかさを一層引き立てます。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">03</div><div class="ingredient-name">Non-chillfiltered製法</div><p class="ingredient-desc">製品の特徴を最大限に引き出すためNon-chillfilteredに。冬場や冷蔵庫に入れると白濁しますが、食品由来の成分ですので品質に問題はありません。</p></div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2: Teen Spirits -->
+    <div class="product-card reveal">
+      <div class="product-visual">
+        <div class="product-visual-bg bg-2"></div>
+        <img class="product-img" src="image/sake2.avif" alt="Teen Spirits">
+        <div class="product-num">02</div>
+      </div>
+      <div class="product-info">
+        <span class="product-tag">Gin / 三島蒸留所</span>
+        <h3 class="product-name-ja">Teen Spirits</h3>
+        <span class="product-name-en">ティーンスピリッツ</span>
+        <p class="product-tagline">青き心薫るジン。私たちの衝動の根源であるあの頃の勢いをもう一度。</p>
+        <div class="product-rule"></div>
+        <p class="product-desc">特別な山椒と三種の柑橘、紫蘇、その他様々なボタニカルを使用したオリジナルレシピをスモールバッチにて時間をかけて蒸留。バタフライピーの花を浸漬した「Magic Gin」はトニックウォーターやレモンと混ざると徐々にピンク色に変色する幻想的な一本。</p>
+        <div class="product-specs">
+          <div class="spec-item"><span class="spec-label">内容量</span><span class="spec-value">375ml</span></div>
+          <div class="spec-item"><span class="spec-label">アルコール度数</span><span class="spec-value">45度</span></div>
+          <div class="spec-item"><span class="spec-label">価格</span><span class="spec-value">¥3,215（税抜）</span></div>
+          <div class="spec-item"><span class="spec-label">製造</span><span class="spec-value">三島</span></div>
+        </div>
+        <div class="product-botanicals">
+          <span class="botanicals-label">BOTANICALS</span>
+          <p class="botanicals-text">ジュニパーベリー、みかん皮、レモンピール、大葉、ライムピール、アンジェリカルート、コリアンダーシード、スペアミント、シナモン、山椒、バタフライピー</p>
+        </div>
+        <div class="product-awards">
+          <span class="awards-label">AWARDS</span>
+          <div class="award-badges">
+            <div class="award-badge">Gin Masters 2024 Master Medal</div>
+            <div class="award-badge">IWSC 2024 Spirit Bronze</div>
+            <div class="award-badge">SFWSC 2024 Bronze Medal</div>
+            <div class="award-badge">TWSC 2022 銀賞</div>
+          </div>
+        </div>
+        <a class="btn-store" href="https://izu-fan-selection1.stores.jp/items/69b8235c6857f8103babce4d" target="_blank">STORESで購入する →</a>
+      </div>
+    </div>
+
+    <div class="ingredients-section">
+      <span class="ingredients-title">SPECIAL INGREDIENTS — 特別な素材</span>
+      <div class="ingredients-grid">
+        <div class="ingredient-card"><div class="ingredient-num">01</div><div class="ingredient-name">特別な山椒</div><p class="ingredient-desc">やまつ辻田謹製 石臼びき山朝倉山椒を使用。山朝倉山椒は新芽・若実のみずみずしさ、華やかな香りが特長です。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">02</div><div class="ingredient-name">3種の柑橘</div><p class="ingredient-desc">善兵衛農園の青レモン、Orange Park Farmの自然栽培青みかん、国産ライムの3種。「青い」味わいに磨きをかけました。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">03</div><div class="ingredient-name">Magic Gin</div><p class="ingredient-desc">バタフライピーの花を浸漬し、宝石のような鮮やかな青色に仕上げました。トニックウォーターやレモンと混ざると徐々にピンク色に変色します。</p></div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3: On Spring -->
+    <div class="product-card reveal">
+      <div class="product-visual">
+        <div class="product-visual-bg bg-3"></div>
+        <img class="product-img" src="image/sake3.avif" alt="On Spring">
+        <div class="product-num">03</div>
+      </div>
+      <div class="product-info">
+        <span class="product-tag">Gin / 三島蒸留所</span>
+        <h3 class="product-name-ja">On Spring</h3>
+        <span class="product-name-en">オンスプリング</span>
+        <p class="product-tagline">春風薫る、冒険のジン。</p>
+        <div class="product-rule"></div>
+        <p class="product-desc">冬が明け、暖かくなる、出会いと別れの季節。そんな季節を包み込む春風をイメージして作られたジン。梅、八朔、生姜、バニラ、トンカ豆と贅沢なボタニカルをスモールバッチにて丁寧に蒸留しました。</p>
+        <div class="product-specs">
+          <div class="spec-item"><span class="spec-label">内容量</span><span class="spec-value">375ml</span></div>
+          <div class="spec-item"><span class="spec-label">アルコール度数</span><span class="spec-value">43度</span></div>
+          <div class="spec-item"><span class="spec-label">価格</span><span class="spec-value">¥3,400（税抜）</span></div>
+          <div class="spec-item"><span class="spec-label">製造</span><span class="spec-value">三島</span></div>
+        </div>
+        <div class="product-botanicals">
+          <span class="botanicals-label">BOTANICALS</span>
+          <p class="botanicals-text">ジュニパーベリー、梅、八朔、生姜、トンカ豆、バニラ、アンジェリカルート、レモングラス、シナモン</p>
+        </div>
+        <div class="product-awards">
+          <span class="awards-label">AWARDS</span>
+          <div class="award-badges">
+            <div class="award-badge">Gin Masters 2024 Master Medal</div>
+            <div class="award-badge">TWSC 2023 金賞</div>
+            <div class="award-badge">IWSC 2024 Spirit Gold 95pts</div>
+            <div class="award-badge">フェミナリーズ世界ワインコンクール 2024 Gold</div>
+            <div class="award-badge">SFWSC 2024 Silver Medal</div>
+          </div>
+        </div>
+        <a class="btn-store" href="https://izu-fan-selection1.stores.jp/items/69b823c76dd9a9144a9b2572" target="_blank">STORESで購入する →</a>
+      </div>
+    </div>
+
+    <div class="ingredients-section">
+      <span class="ingredients-title">SPECIAL INGREDIENTS — 特別な素材</span>
+      <div class="ingredients-grid">
+        <div class="ingredient-card"><div class="ingredient-num">01</div><div class="ingredient-name">鳥取県大山産の梅</div><p class="ingredient-desc">鳥取県大山産の梅をふんだんにボタニカルに使用。梅本来のフルーティさと、甘い香りをお楽しみいただけます。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">02</div><div class="ingredient-name">善兵衛農園の八朔</div><p class="ingredient-desc">和歌山県の善兵衛農園で出た使い途のない八朔の皮を使用。新鮮な八朔のみずみずしい香りを丁寧に抽出し、えぐみを抑えました。</p></div>
+        <div class="ingredient-card"><div class="ingredient-num">03</div><div class="ingredient-name">スマトラ島産ブルボンバニラ</div><p class="ingredient-desc">スマトラ島産の高品質なブルボンバニラを惜しげもなく贅沢に使用。豊かなバニラの香りが広がります。</p></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section reveal">
+  <span class="video-label">Movie</span>
+  <h2 class="video-title">蒸留所の物語</h2>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/g72Rjq-dX2s?start=25" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <div class="footer-brand">IZU FAN SELECTION</div>
+  <a class="footer-back" href="index.html">← トップページへ戻る</a>
+  <div class="footer-copy">© 2026 IZU FAN SELECTION. Powered by まちプロ</div>
+</footer>
+
+<script>
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.transform = 'translate(-50%,-50%) scale(2.5)'; });
+  el.addEventListener('mouseleave', () => { cur.style.transform = 'translate(-50%,-50%) scale(1)'; });
+});
+
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
