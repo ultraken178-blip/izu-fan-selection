@@ -76,15 +76,12 @@ nav.solid {
 .nav-btn:hover { background: var(--gold); color: var(--dark); }
 
 .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-
 .hero-slides { position: absolute; inset: 0; }
 .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
 .hero-slide.active { opacity: 1; }
-
 .slide-1 { background-image: url('image/hero1.png'); }
 .slide-2 { background-image: url('image/hero2.png'); }
 .slide-3 { background-image: url('image/hero3.png'); }
-
 .hero-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to bottom, rgba(14,12,9,0.3) 0%, rgba(14,12,9,0.2) 40%, rgba(14,12,9,0.7) 100%);
@@ -95,11 +92,9 @@ nav.solid {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-size: 180px; mix-blend-mode: overlay; pointer-events: none;
 }
-
 .slide-indicators { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.6rem; z-index: 10; }
 .slide-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(200,168,75,0.3); border: 1px solid rgba(200,168,75,0.5); cursor: pointer; transition: all 0.3s; }
 .slide-dot.active { background: var(--gold); width: 24px; border-radius: 3px; }
-
 .hero-content { position: relative; z-index: 10; padding: 0 5rem 7rem; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
 .hero-tag { display: inline-flex; align-items: center; gap: 0.8rem; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
 .hero-tag-line { width: 40px; height: 1px; background: var(--gold); }
@@ -109,12 +104,10 @@ nav.solid {
 .hero-right { padding-bottom: 0.5rem; opacity: 0; animation: fadeUp 0.9s ease 0.9s forwards; }
 .hero-desc { font-size: clamp(0.85rem, 1.2vw, 0.98rem); line-height: 2.4; color: rgba(247,242,234,0.75); border-left: 1px solid rgba(200,168,75,0.3); padding-left: 1.8rem; margin-bottom: 3rem; }
 .hero-cta-group { display: flex; gap: 1rem; align-items: center; }
-
 .btn-primary { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 2.4rem; background: var(--gold); color: var(--dark); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em; font-family: 'Noto Serif JP', serif; font-weight: 700; transition: all 0.3s ease; }
 .btn-primary:hover { background: var(--gold-lt); gap: 1.5rem; }
 .btn-ghost { display: inline-flex; align-items: center; gap: 0.8rem; padding: 1rem 1.8rem; border: 1px solid rgba(247,242,234,0.2); color: rgba(247,242,234,0.6); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.15em; transition: all 0.3s ease; }
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-
 @keyframes fadeUp { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
 
 .ticker { background: var(--gold); padding: 0.75rem 0; overflow: hidden; white-space: nowrap; }
@@ -145,16 +138,13 @@ nav.solid {
 .feature:nth-child(even) .feature-body { order: 1; }
 .feature-visual { position: relative; overflow: hidden; min-height: 500px; }
 .feature-visual-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-
 .fv-1 { background: radial-gradient(ellipse 70% 60% at 40% 50%, rgba(200,168,75,0.22) 0%, transparent 65%), linear-gradient(145deg, #0d1a0e 0%, #1a1408 100%); }
 .fv-2 { background: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(26,74,110,0.3) 0%, transparent 65%), linear-gradient(145deg, #060e18 0%, #0d1825 100%); }
 .fv-3 { background: radial-gradient(ellipse 70% 60% at 50% 60%, rgba(160,82,45,0.25) 0%, transparent 65%), linear-gradient(145deg, #150a05 0%, #1f1008 100%); }
 .fv-4 { background: radial-gradient(ellipse 70% 60% at 40% 50%, rgba(100,50,120,0.25) 0%, transparent 65%), linear-gradient(145deg, #0d0814 0%, #1a1020 100%); }
-
 .sake-slides { position: absolute; inset: 0; }
-.sake-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
+.sake-slide { position: absolute; inset: 0; background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #0d0814; opacity: 0; transition: opacity 1.5s ease-in-out; }
 .sake-slide.active { opacity: 1; }
-
 .feature-art { text-align: center; padding: 4rem; }
 .feature-art-icon { font-size: clamp(5rem, 10vw, 9rem); display: block; margin-bottom: 2rem; filter: drop-shadow(0 0 60px rgba(200,168,75,0.25)); animation: artFloat 6s ease-in-out infinite; }
 @keyframes artFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -214,12 +204,61 @@ nav.solid {
 .join-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .join-left h2 { font-family: 'Shippori Mincho B1', serif; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.6; font-weight: 700; margin-bottom: 1.5rem; }
 .join-left p { font-size: 0.9rem; line-height: 2.4; color: rgba(247,242,234,0.5); margin-bottom: 2.5rem; }
-.join-benefits { display: flex; flex-direction: column; gap: 1.2rem; }
-.benefit { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1.4rem 1.6rem; border-left: 2px solid rgba(200,168,75,0.4); background: rgba(200,168,75,0.03); transition: background 0.3s; }
-.benefit:hover { background: rgba(200,168,75,0.08); }
-.benefit-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
-.benefit strong { display: block; font-family: 'Shippori Mincho B1', serif; font-size: 0.95rem; color: var(--paper); margin-bottom: 0.3rem; }
-.benefit span { font-size: 0.78rem; color: rgba(247,242,234,0.4); line-height: 1.8; }
+
+/* ===== プランカード ===== */
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.plan-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 6px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+}
+.plan-card--standard {
+  background: rgba(200,168,75,0.08);
+  border-color: var(--gold);
+}
+.plan-card--premium {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(200,168,75,0.5);
+}
+.plan-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.plan-price {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--paper);
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+.plan-price span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.plan-features {
+  list-style: none;
+  text-align: left;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 2;
+}
+.plan-features li::before {
+  content: "• ";
+  color: var(--gold);
+}
+/* ====================== */
+
 .join-form { padding: 3rem; background: rgba(200,168,75,0.05); border: 1px solid rgba(200,168,75,0.15); }
 .form-title { font-family: 'Shippori Mincho B1', serif; font-size: 1.2rem; color: var(--paper); margin-bottom: 0.5rem; }
 .form-sub { font-size: 0.78rem; color: rgba(247,242,234,0.35); letter-spacing: 0.1em; margin-bottom: 2rem; }
@@ -264,6 +303,7 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
   .concept { padding: 6rem 2rem; }
   .showcase { padding: 6rem 2rem; }
   .join { padding: 6rem 2rem; }
+  .plan-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -309,7 +349,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
         海あり、山あり、温泉あり。<br>
         この半島にしか生まれない味を、<br>
         つくった人の顔とともにお届けします。<br><br>
-        まずは<strong>無料プランから始められます。</strong>
       </p>
       <div class="hero-cta-group">
         <a class="btn-primary" href="https://izu-fan-selection1.stores.jp" target="_blank">ストアを見る →</a>
@@ -328,13 +367,11 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
   <div class="ticker-inner">
     <span class="ticker-item">伊豆の恵み <span class="ticker-dot"></span></span>
     <span class="ticker-item">生産者直送 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">無料プランあり・掲載し放題 <span class="ticker-dot"></span></span>
     <span class="ticker-item">ストーリーのあるモノだけ <span class="ticker-dot"></span></span>
     <span class="ticker-item">沼津・三島・熱海・下田・静岡 <span class="ticker-dot"></span></span>
     <span class="ticker-item">IZU FAN SELECTION <span class="ticker-dot"></span></span>
     <span class="ticker-item">伊豆の恵み <span class="ticker-dot"></span></span>
     <span class="ticker-item">生産者直送 <span class="ticker-dot"></span></span>
-    <span class="ticker-item">無料プランあり・掲載し放題 <span class="ticker-dot"></span></span>
     <span class="ticker-item">ストーリーのあるモノだけ <span class="ticker-dot"></span></span>
     <span class="ticker-item">沼津・三島・熱海・下田・静岡 <span class="ticker-dot"></span></span>
     <span class="ticker-item">IZU FAN SELECTION <span class="ticker-dot"></span></span>
@@ -361,10 +398,7 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     </div>
     <div class="concept-right">
       <div class="concept-stats">
-        <div class="stat-box">
-          <div class="stat-num">¥<span class="stat-unit">0〜</span></div>
-          <div class="stat-label">掲載費<br>無料プランから始められる</div>
-        </div>
+
         <div class="stat-box">
           <div class="stat-num">5<span class="stat-unit">エリア+</span></div>
           <div class="stat-label">沼津・三島・熱海・下田・静岡<br>伊豆全域＋静岡市エリアも展開</div>
@@ -375,7 +409,7 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
         </div>
         <div class="stat-box">
           <div class="stat-num">∞</div>
-          <div class="stat-label">掲載品数<br>月額固定で何品でもOK</div>
+          <div class="stat-label">掲載品数<br>プランに応じて選べます</div>
         </div>
       </div>
     </div>
@@ -383,8 +417,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
 </section>
 
 <section class="features" id="products">
-
-  <!-- Story 1: ジェラート -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-1" style="padding:0;overflow:hidden;">
@@ -408,16 +440,16 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     </div>
   </div>
 
-  <!-- Story 2: 伊豆地酒 -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-4" style="padding:0;overflow:hidden;">
-       <div class="sake-slides" id="sakeSlides">
-  <div class="sake-slide active" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
-    <span style="font-size:3rem;">🍶</span>
-    <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(200,168,75,0.6);letter-spacing:0.2em;font-size:0.85rem;">Coming Soon</span>
-  </div>
-</div>
+        <div class="sake-slides" id="sakeSlides">
+          <div class="sake-slide active" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
+            <span style="font-size:3rem;">🍶</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(200,168,75,0.6);letter-spacing:0.2em;font-size:0.85rem;">Coming Soon</span>
+          </div>
+        </div>
+      </div>
       <div class="feature-bg-num">02</div>
     </div>
     <div class="feature-body">
@@ -436,7 +468,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     </div>
   </div>
 
-  <!-- Story 3: 海の幸 -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-2">
@@ -464,7 +495,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     </div>
   </div>
 
-  <!-- Story 4: 山の恵み -->
   <div class="feature reveal">
     <div class="feature-visual">
       <div class="feature-visual-inner fv-3">
@@ -491,7 +521,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
       <a class="btn-feature" href="https://izu-fan-selection1.stores.jp" target="_blank">商品を見る →</a>
     </div>
   </div>
-
 </section>
 
 <section class="showcase">
@@ -509,10 +538,11 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
       <div class="sc-catch">伊豆の旬のフルーツを贅沢に使ったアルチザンジェラート。6種のフレーバーセット。</div>
       <div class="sc-arrow">↗</div>
     </div>
-    <div class="sc-card sc-card-b" style="display:none;">
-```
+    <div class="sc-card sc-card-b">
       <span class="free-pill">掲載中</span>
-      <img class="sc-img" src="image/sake1.avif" alt="伊豆地酒">
+      <div style="height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;border:1px solid rgba(200,168,75,0.15);">
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(200,168,75,0.5);letter-spacing:0.2em;font-size:0.85rem;">Coming Soon</span>
+      </div>
       <div class="sc-tag">地酒 / 伊豆・静岡</div>
       <div class="sc-name">伊豆地酒セット</div>
       <div class="sc-origin">伊豆・静岡の酒蔵</div>
@@ -565,43 +595,55 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     <div class="join-left reveal">
       <h2>あなたの商品を、<br>物語に<br>しませんか。</h2>
       <div class="gold-rule"></div>
-      <p>まずは無料プランから始められます。<br>梅（無料）・竹（月額3,000円）・松（月額8,000円）の<br>3つのプランをご用意しています。</p>
-      <div class="join-benefits">
-        <div class="benefit">
-          <div class="benefit-icon">📸</div>
-          <div><strong>プロ撮影サポート</strong><span>商品・生産現場の撮影をまちプロがサポート</span></div>
+      <p>伊豆・静岡の生産者・事業者の方であれば<br>どなたでもお申し込みいただけます。</p>
+
+      <!-- プランカード -->
+      <div class="plan-grid">
+        <div class="plan-card">
+          <div class="plan-name">FREE</div>
+          <div class="plan-price">無料</div>
+          <ul class="plan-features">
+            <li>掲載品数：1品</li>
+            <li>販売手数料：15%</li>
+            <li>写真撮影：—</li>
+            <li>SNS紹介：—</li>
+            <li>インフルエンサー：—</li>
+          </ul>
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">✍️</div>
-          <div><strong>ストーリー取材・執筆</strong><span>生産者インタビューであなたの想いを言語化</span></div>
+        <div class="plan-card plan-card--standard">
+          <div class="plan-name">STANDARD</div>
+          <div class="plan-price">¥3,000<span>/月</span></div>
+          <ul class="plan-features">
+            <li>掲載品数：5品</li>
+            <li>販売手数料：10%</li>
+            <li>写真撮影：1回</li>
+            <li>SNS紹介：月1回</li>
+            <li>インフルエンサー：—</li>
+          </ul>
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">📣</div>
-          <div><strong>インフルエンサーサービス利用可能</strong><span>SNS拡散サービスを活用して購買をサポート</span></div>
-        </div>
-        <div class="benefit">
-          <div class="benefit-icon">¥</div>
-          <div><strong>3つのプランをご用意</strong><span>梅（無料）・竹（月額3,000円）・松（月額8,000円）</span></div>
+        <div class="plan-card plan-card--premium">
+          <div class="plan-name">PREMIUM</div>
+          <div class="plan-price">¥8,000<span>/月</span></div>
+          <ul class="plan-features">
+            <li>掲載品数：無制限</li>
+            <li>販売手数料：8%</li>
+            <li>写真撮影：無制限</li>
+            <li>SNS紹介：月3回</li>
+            <li>インフルエンサー：✓</li>
+          </ul>
         </div>
       </div>
     </div>
+
     <div class="join-form reveal">
       <div class="form-title">掲載のお申し込み</div>
       <div class="form-sub">LISTING APPLICATION</div>
-      <form id="contactForm" action="https://formspree.io/f/mvzwnjar" method="POST">
-        <input type="hidden" name="_subject" value="【IZU FAN SELECTION】掲載お申し込みがありました">
-        <input type="hidden" name="_next" value="">
-        <div class="form-field"><label>店舗・屋号名</label><input type="text" name="店舗・屋号名" placeholder="例：田中農園" required></div>
-        <div class="form-field"><label>エリア</label><input type="text" name="エリア" placeholder="例：沼津市・静岡市など" required></div>
-        <div class="form-field"><label>商品カテゴリ</label><input type="text" name="商品カテゴリ" placeholder="例：干物・加工品"></div>
-        <div class="form-field"><label>ご連絡先（メール or LINE）</label><input type="text" name="連絡先" placeholder="例：tanaka@example.com" required></div>
-        <div class="form-field"><label>一言メッセージ</label><textarea name="メッセージ" placeholder="商品への想いや、どんなストーリーがあるか教えてください。"></textarea></div>
-        <button type="submit" class="form-submit" id="submitBtn">申し込む</button>
-      </form>
-      <div id="formSuccess" style="display:none;text-align:center;padding:2rem 0;">
-        <p style="font-family:'Shippori Mincho B1',serif;font-size:1rem;color:var(--gold);margin-bottom:0.8rem;">お申し込みありがとうございます！</p>
-        <p style="font-size:0.82rem;color:rgba(247,242,234,0.5);line-height:2;">担当者より折り返しご連絡いたします。</p>
-      </div>
+      <div class="form-field"><label>店舗・屋号名</label><input type="text" placeholder="例：田中農園"></div>
+      <div class="form-field"><label>エリア</label><input type="text" placeholder="例：沼津市・静岡市など"></div>
+      <div class="form-field"><label>商品カテゴリ</label><input type="text" placeholder="例：干物・加工品"></div>
+      <div class="form-field"><label>ご連絡先（メール or LINE）</label><input type="text" placeholder="例：tanaka@example.com"></div>
+      <div class="form-field"><label>一言メッセージ</label><textarea placeholder="商品への想いや、どんなストーリーがあるか教えてください。"></textarea></div>
+      <button class="form-submit" onclick="alert('お申し込みありがとうございます！\n担当者よりご連絡いたします。')">申し込む</button>
     </div>
   </div>
 </section>
@@ -611,7 +653,7 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
     <div class="footer-brand">
       <h3>IZU FAN SELECTION</h3>
       <div class="en">Izu Local Selection Store</div>
-      <p>伊豆・静岡の生産者と消費者をつなぐ<br>物語のあるECプラットフォーム。<br>無料プランから始められるECプラットフォーム。まちプロ運営。</p>
+      <p>伊豆・静岡の生産者と消費者をつなぐ<br>物語のあるECプラットフォーム。<br>まちプロ運営。</p>
     </div>
     <div class="footer-col">
       <h4>MENU</h4>
@@ -640,7 +682,6 @@ footer { background: #080604; border-top: 1px solid rgba(200,168,75,0.1); paddin
 </footer>
 
 <script>
-// カスタムカーソル
 const cur = document.getElementById('cur');
 const ring = document.getElementById('curRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -656,12 +697,8 @@ document.querySelectorAll('a,button').forEach(el => {
   el.addEventListener('mouseenter', () => { cur.style.transform = 'translate(-50%,-50%) scale(2.5)'; });
   el.addEventListener('mouseleave', () => { cur.style.transform = 'translate(-50%,-50%) scale(1)'; });
 });
-
-// Nav scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 80));
-
-// ヒーロースライドショー（繰り返し）
 const heroSlideEls = document.querySelectorAll('#heroSlides .hero-slide');
 const dots = document.querySelectorAll('.slide-dot');
 let heroCurrent = 0;
@@ -676,8 +713,6 @@ dots.forEach(dot => {
   dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
 });
 setInterval(() => goToSlide(heroCurrent + 1), 3000);
-
-// 地酒スライドショー（繰り返し）
 const sakeSlideEls = document.querySelectorAll('#sakeSlides .sake-slide');
 let sakeCurrent = 0;
 setInterval(() => {
@@ -685,49 +720,15 @@ setInterval(() => {
   sakeCurrent = (sakeCurrent + 1) % sakeSlideEls.length;
   sakeSlideEls[sakeCurrent].classList.add('active');
 }, 3000);
-
-// Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.1 });
 reveals.forEach(el => io.observe(el));
-
-// Parallax
 window.addEventListener('scroll', () => {
   const heroSlidesEl = document.getElementById('heroSlides');
   if (heroSlidesEl) heroSlidesEl.style.transform = `translateY(${scrollY * 0.3}px)`;
 });
-
-// Formspree送信処理
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = '送信中...';
-    btn.disabled = true;
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      } else {
-        btn.textContent = '申し込む';
-        btn.disabled = false;
-        alert('送信に失敗しました。再度お試しください。');
-      }
-    } catch {
-      btn.textContent = '申し込む';
-      btn.disabled = false;
-      alert('送信に失敗しました。再度お試しください。');
-    }
-  });
-}
 </script>
 </body>
 </html>
